@@ -10,7 +10,6 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -21,7 +20,7 @@ import java.util.List;
 
 public class Main {
 
-    public static void main(String[] args) throws ParserConfigurationException, SAXException, IOException {
+     public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException {
 
         //Task1
         String[] columnMapping = {"id", "firstName", "lastName", "country", "age"};
@@ -44,7 +43,6 @@ public class Main {
     }
 
     static List<Employee> jsonToList(File jsonFile) {
-
         JSONParser parser = new JSONParser();
         List<Employee> list = new ArrayList<>();
         try {
