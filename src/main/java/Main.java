@@ -5,6 +5,9 @@ import com.opencsv.CSVReader;
 import com.opencsv.bean.ColumnPositionMappingStrategy;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
@@ -22,15 +25,49 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException {
+
+        //Task1
         String[] columnMapping = {"id", "firstName", "lastName", "country", "age"};
         String fileName = "data.csv";
         List<Employee> list = parseCSV(columnMapping, fileName);
         String json = listToJson(list);
         writeString(json, "data.json");
 
+        //Task2
         List<Employee> list1 = parseXML("data.xml");
         String json1 = listToJson(list1);
         writeString(json1, "data2.json");
+
+        //Task3
+        //String json2 = readString("new_data.json");
+
+        List<Employee> list2 = jsonToList(json2);
+        for (Employee employee: list2) {
+            System.out.println(employee);
+        }
+    }
+
+    static List<Employee> jsonToList(String json) {
+
+        JSONParser parser = new JSONParser();
+        List<Employee> list = new ArrayList<>();
+        try {
+            JSONArray jsonArray = (JSONArray) parser.parse(new FileReader(json));
+            GsonBuilder builder = new GsonBuilder();
+            Gson gson = builder.create();
+            for (Object object : jsonArray) {
+                list.add(gson.fromJson(String.valueOf(object), Employee.class));
+            }
+            return list;
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    static String readString(String jsonFileName) {
+
+        return null;
     }
 
     static void writeString(String json, String jsonFileName) {
